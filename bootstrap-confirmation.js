@@ -233,6 +233,10 @@
       }
       if (typeof option == 'string') {
         data[option]();
+        
+        if(option == 'hide') {
+          data.inState.click = false;
+        }
       }
     });
   };

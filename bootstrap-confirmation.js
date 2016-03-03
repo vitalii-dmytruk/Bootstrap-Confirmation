@@ -234,7 +234,7 @@
       if (typeof option == 'string') {
         data[option]();
         
-        if(option == 'hide') {
+        if (option == 'hide' && data.inState) { //data.inState doesn't exist in Bootstrap < 3.3.5
           data.inState.click = false;
         }
       }

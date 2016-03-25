@@ -138,6 +138,10 @@
 
     $tip.find('.popover-title')[o.html ? 'html' : 'text'](this.getTitle());
 
+    $tip.on('click', function (e) {
+          stopEventBubbling(e)
+    });
+
     // configure 'ok' button
     $tip.find('[data-apply="confirmation"]')
       .addClass(o.btnOkClass)
@@ -150,6 +154,7 @@
         that.$element.trigger('confirmed.bs.confirmation');
         that.$element.trigger(that.options.trigger, [true]);
         that.$element.confirmation('hide');
+        stopEventBubbling(e);
       });
 
     // configure 'cancel' button
@@ -163,6 +168,7 @@
         if (that.inState) that.inState.click = false; // Bootstrap 3.3.5
         that.$element.trigger('canceled.bs.confirmation');
         that.$element.confirmation('hide');
+        stopEventBubbling(e);
       });
 
     $tip.removeClass('fade top bottom left right in');
@@ -173,6 +179,12 @@
       $tip.find('.popover-title').hide();
     }
   };
+
+  function stopEventBubbling(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+  }
 
   Confirmation.prototype.getOnConfirm = function() {
     if (this.$element.attr('data-on-confirm')) {
